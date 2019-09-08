@@ -1,17 +1,18 @@
-package old
+package new
 
 import (
-	"github.com/pkg/errors"
+	"errors"
+	"fmt"
 )
 
 // Wrapped returns wrapped error
 func Wrapped() error {
 	internal := errors.New("internal error")
-	return errors.Wrap(internal, "wrapper")
+	return fmt.Errorf("wrapper: %w", internal)
 }
 
 // ErrorsStack wraps error two times
 func ErrorsStack() error {
 	err := Wrapped()
-	return errors.Wrap(err, "another wrapper")
+	return fmt.Errorf("another wrapper: %w", err)
 }
