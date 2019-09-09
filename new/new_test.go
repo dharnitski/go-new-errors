@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/dharnitski/go-new-errors/new"
+	"github.com/dharnitski/go-new-errors/old"
 )
 
 func TestWrapped(t *testing.T) {
@@ -42,4 +43,10 @@ func TestFormat(t *testing.T) {
 	actual := fmt.Sprintf("%+v\n", err)
 	// difference: github.com/pkg/errors returns callstack for all nested errors for +v
 	assert.Equal(t, "wrapper: internal error\n", actual)
+}
+
+func TestUnwrapOld(t *testing.T) {
+	wrapped := old.Wrapped()
+	unwrapped := errors.Unwrap(wrapped)
+	require.Nil(t, unwrapped)
 }

@@ -8,9 +8,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
+	"github.com/dharnitski/go-new-errors/new"
 	"github.com/dharnitski/go-new-errors/old"
 )
 
+// TestWrapped 
 func TestWrapped(t *testing.T) {
 	actual := old.Wrapped()
 	assert.Equal(t, "wrapper: internal error", actual.Error())
@@ -43,4 +45,11 @@ func TestFormat(t *testing.T) {
 	assert.Contains(t, actual, "github.com/dharnitski/go-new-errors/old.Wrapped")
 	assert.Contains(t, actual, "/github.com/dharnitski/go-new-errors/old/old.go:")
 	assert.Contains(t, actual, "wrapper")
+}
+
+func TestUnwrapNew(t *testing.T) {
+	wrapped := new.Wrapped()
+	unwrapped := errors.Cause(wrapped)
+	require.NotNil(t, unwrapped)
+	assert.Equal(t, "wrapper: internal error", unwrapped.Error())
 }
