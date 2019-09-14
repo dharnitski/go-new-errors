@@ -12,7 +12,7 @@ import (
 	"github.com/dharnitski/go-new-errors/old"
 )
 
-// TestWrapped 
+// TestWrapped
 func TestWrapped(t *testing.T) {
 	actual := old.Wrapped()
 	assert.Equal(t, "wrapper: internal error", actual.Error())
@@ -52,4 +52,11 @@ func TestUnwrapNew(t *testing.T) {
 	unwrapped := errors.Cause(wrapped)
 	require.NotNil(t, unwrapped)
 	assert.Equal(t, "wrapper: internal error", unwrapped.Error())
+}
+
+func TestUnwrapBare(t *testing.T) {
+	err := errors.New("some error")
+	unwrapped := errors.Cause(err)
+	require.NotNil(t, unwrapped)
+	assert.Equal(t, "some error", unwrapped.Error())
 }

@@ -1,8 +1,6 @@
 package old
 
-import (
-	"github.com/pkg/errors"
-)
+import "github.com/pkg/errors"
 
 // Wrapped returns wrapped error
 func Wrapped() error {

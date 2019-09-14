@@ -17,6 +17,7 @@ func TestWrapped(t *testing.T) {
 	assert.Equal(t, "wrapper: internal error", actual.Error())
 }
 
+// TestUnwrap wraps and unwraps error and verifies unwrapped error
 func TestUnwrap(t *testing.T) {
 	wrapped := new.Wrapped()
 	unwrapped := errors.Unwrap(wrapped)
@@ -48,5 +49,11 @@ func TestFormat(t *testing.T) {
 func TestUnwrapOld(t *testing.T) {
 	wrapped := old.Wrapped()
 	unwrapped := errors.Unwrap(wrapped)
+	require.Nil(t, unwrapped)
+}
+
+func TestUnwrapBare(t *testing.T) {
+	err := errors.New("some error")
+	unwrapped := errors.Unwrap(err)
 	require.Nil(t, unwrapped)
 }
